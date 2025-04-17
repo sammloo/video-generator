@@ -25,7 +25,6 @@ def create_video_with_text(video_id, text, position, duration):
         with shelve.open(settings.CACHE_FILE) as cache:
             cache[video_id] = settings.TASK_STATUS["FAILED"]
         logger.error(f"Error during video creation: {e}")
-        raise e
 
 def create_video_with_animated_text(video_id, text, duration):
     try:
@@ -54,5 +53,4 @@ def create_video_with_animated_text(video_id, text, duration):
         with shelve.open(settings.CACHE_FILE) as cache:
             cache[video_id] = settings.TASK_STATUS["FAILED"]
         logger.error(f"Error during video creation: {e}")
-        raise e
 

@@ -16,58 +16,46 @@ router = APIRouter()
 
 @router.post("/generate_video", response_model=GenerateVideoResponse)
 def generate_video(request: GenerateVideoRequest, background_tasks: BackgroundTasks):    
-    try:
-        video_id = create_video_id()
-        with shelve.open(settings.CACHE_FILE) as cache:
-            cache[video_id] = settings.TASK_STATUS["IN_PROGRESS"]
-            
-        background_tasks.add_task(
-            create_video_with_text,
-            video_id=video_id,
-            text=request.text,
-            position=(request.x, request.y),
-            duration=request.duration
-        )
-        logger.info(f"Video generated successfully for text: {request.text}")
-        response_data = GenerateVideoResponse(
-            status_code=status.HTTP_200_OK,
-            status="success",
-            video_id=video_id,
-        )
-        return response_data
-    except FileNotFoundError as e:
-        logger.error(f"File not found error: {e}")
-        raise HTTPException(status_code=400, detail="Required font or file is missing. Please check the resources.")
-    except OSError as e:
-        logger.error(f"OS error during video creation: {e}")
-        raise HTTPException(status_code=500, detail="Error generating video. Please try again later.")
-    except Exception as e:
-        logger.error(f"Failed to generate video: {e}")
-        raise HTTPException(status_code=500, detail=settings.SERVER_ERROR_MESSAGE)
+    video_id = create_video_id()
+    with shelve.open(settings.CACHE_FILE) as cache:
+        cache[video_id] = settings.TASK_STATUS["IN_PROGRESS"]
+        
+    background_tasks.add_task(
+        create_video_with_text,
+        video_id=video_id,
+        text=request.text,
+        position=(request.x, request.y),
+        duration=request.duration
+    )
+    logger.info(f"Video generation started for text: {request.text}")
+    response_data = GenerateVideoResponse(
+        status_code=status.HTTP_200_OK,
+        status="success",
+        video_id=video_id,
+    )
+    return response_data
+
 
 @router.post("/generate_animated_video", response_model=GenerateVideoResponse)
 def generate_video(request: GenerateAnimatedVideoRequest, background_tasks: BackgroundTasks):    
-    try:
-        video_id = create_video_id()
-        with shelve.open(settings.CACHE_FILE) as cache:
-            cache[video_id] = settings.TASK_STATUS["IN_PROGRESS"]
-            
-        background_tasks.add_task(
-            create_video_with_animated_text,
-            video_id=video_id,
-            text=request.text,
-            duration=request.duration
-        )
-        logger.info(f"Video generated successfully for text: {request.text}")
-        response_data = GenerateVideoResponse(
-            status_code=status.HTTP_202_ACCEPTED,
-            status="success",
-            video_id=video_id,
-        )
-        return response_data
-    except Exception as e:
-        logger.error(f"Failed to generate video: {e}")
-        raise HTTPException(status_code=500, detail=settings.SERVER_ERROR_MESSAGE)
+    video_id = create_video_id()
+    with shelve.open(settings.CACHE_FILE) as cache:
+        cache[video_id] = settings.TASK_STATUS["IN_PROGRESS"]
+        
+    background_tasks.add_task(
+        create_video_with_animated_text,
+        video_id=video_id,
+        text=request.text,
+        duration=request.duration
+    )
+    logger.info(f"Video generation started for text: {request.text}")
+    response_data = GenerateVideoResponse(
+        status_code=status.HTTP_202_ACCEPTED,
+        status="success",
+        video_id=video_id,
+    )
+    return response_data
+
 
 @router.get("/get_video")
 def get_video(video_id: str):

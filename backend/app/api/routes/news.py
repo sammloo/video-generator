@@ -20,12 +20,12 @@ def get_trending_news(refresh: bool = Query(False, description="Force re-scrape 
             if not refresh and settings.CACHE_KEY in cache:
                 cached_data, timestamp = cache[settings.CACHE_KEY]
                 if now - timestamp < settings.CACHE_TTL_SECONDS:
-                    logger.error("Returning cached trending news.")
+                    logger.info("Returned cached trending news.")
                     return cached_data
 
             results = fetch_trending_stories()
             cache[settings.CACHE_KEY] = (results, now)
-            logger.error("Updated cache with fresh trending news.")
+            logger.info("Updated cache with fresh trending news.")
             return results
 
     except Exception as e:

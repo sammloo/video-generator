@@ -9,8 +9,8 @@ This a backend application for a Video Generation Platform, designed to perform 
 ## Design decisions
 
 - **FastAPI:** was chosen for its high performance and built-in support for async executions
-- **Background Tasks:** was used to offload video generation to a background task and non-blocking
-- **Shelve:** was picked for in-memory cache of trending stories and task status
+- **Background Task:** was used to offload video generation to a background task
+- **Shelve:** was picked for in-memory cache of task status and trending stories
 - **Nginx:** was added to as a reverse proxy, and could serve static files, handle SSL, load balancing if needed.
 
 ## Features
@@ -76,6 +76,19 @@ An example Postman collection is provided for your reference
 - GET api/v1/get_video?video_id=video-xxxxx
 - GET api/v1/trending-news
 - GET api/v1/trending-news?refresh=true
+
+## Unit Tests
+
+We use pytest to test critical parts of the video generation API, including background task behavior and error handling.
+
+### Run Tests
+
+To run the full test suite:
+
+```sh
+cd backend
+pytest
+```
 
 ## Contact
 

@@ -19,5 +19,6 @@ class Settings:
         "IN_PROGRESS": "in_progress",
         "COMPLETED": "completed",
         "FAILED": "failed"
-    }    
+    }
+       
 settings = Settings()

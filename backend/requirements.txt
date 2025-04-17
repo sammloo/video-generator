@@ -1,0 +1,7 @@
+fastapi
+moviepy
+requests
+bs4
+pytest
+httpx
+uvicorn[standard]

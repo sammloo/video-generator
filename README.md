@@ -29,13 +29,29 @@ This a backend application for a Video Generation Platform, designed to perform 
    ```
 
 2. Start the backend using Docker:
+
    ```sh
    docker-compose up --build
    ```
 
+3. Check the health of the backend using curl
+
+   ```sh
+   curl http://localhost:8000/api/v1/health
+   ```
+
+   If the service is healthy, you should receive a response like:
+
+   ```json
+   { "status": "ok" }
+   ```
+
 ## API Documentation
 
-The backend provides a RESTful API. You can test the endpoints using Postman
+The backend exposes a set of RESTful APIs for interacting with the video generation service. You can easily test these endpoints using Postman.
+An example Postman collection is provided for your reference
+
+[the Postman Collection](video_generator_test.postman_collection.json)
 
 ### Example Endpoints:
 

@@ -1,0 +1,190 @@
+{
+	"info": {
+		"_postman_id": "30b8af91-4ed7-4cbe-8272-3395e1e6158c",
+		"name": "video generator",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11922426"
+	},
+	"item": [
+		{
+			"name": "generate-video",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();",
+							"let videoId = response.video_id.replace(/^\"|\"$/g, ''); ",
+							"pm.environment.set(\"video_id\", videoId);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"text\": \"The IFA doesn’t offer separate down payment assistance (DPA) programs for first-time homebuyers, but rather, assistance in conjunction with the FirstHome and Homes forIowans programs.\",\n    \"x\": 50,\n    \"y\": 150,\n    \"duration\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/generate_video",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"generate_video"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-video",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/get_video?video_id={{video_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"get_video"
+					],
+					"query": [
+						{
+							"key": "video_id",
+							"value": "{{video_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "generate-animated-video",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();",
+							"let videoId = response.video_id.replace(/^\"|\"$/g, ''); ",
+							"pm.environment.set(\"animated_video_id\", videoId);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"text\": \"The IFA doesn’t offer separate down payment assistance (DPA) programs for first-time homebuyers, but rather, assistance in conjunction with the FirstHome and Homes forIowans programs.\",\n    \"duration\": 3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/generate_animated_video",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"generate_animated_video"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-animated-video",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/get_video?video_id={{animated_video_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"get_video"
+					],
+					"query": [
+						{
+							"key": "video_id",
+							"value": "{{animated_video_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-trending-news",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "get-fresh-trending-news",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
